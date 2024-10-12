@@ -32,6 +32,9 @@ namespace ContentAPI.Business.Repositories
 
         public async Task<ResultDto<bool>> DeleteAsync(Guid id, CancellationToken token)
         {
+            if (id == Guid.Empty)
+                return new ResultDto<bool>("Id can not be null or empty!");
+
             var entity = await _dbContext.Contents.FirstOrDefaultAsync(u => u.Id == id, token);
 
             if (entity == null)
@@ -51,9 +54,12 @@ namespace ContentAPI.Business.Repositories
 
         }
 
-        public async Task<ResultDto<ContentDto>> ReadAsync(Guid iditem, CancellationToken token)
+        public async Task<ResultDto<ContentDto>> ReadAsync(Guid id, CancellationToken token)
         {
-            var entity = await _dbContext.Contents.FirstOrDefaultAsync(u => u.Id == iditem, token);
+            if (id == Guid.Empty)
+                return new ResultDto<ContentDto>("Id can not be null or empty!");
+
+            var entity = await _dbContext.Contents.FirstOrDefaultAsync(u => u.Id == id, token);
             return new ResultDto<ContentDto>(entity.Adapt<ContentDto>());
         }
 
@@ -76,7 +82,7 @@ namespace ContentAPI.Business.Repositories
             entity.Body = item.Body;
             entity.Tags = item.Tags;
             entity.UpdatedDate = DateTime.Now;
-            entity.UpdatedUserId = item.UpdateUserId;
+            entity.UpdatedUserId = item.UpdatedUserId;
 
             _dbContext.Update(entity);
             int record = await _dbContext.SaveChangesAsync(token);

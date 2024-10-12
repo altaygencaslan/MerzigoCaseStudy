@@ -32,6 +32,9 @@ namespace UserAPI.Business.Repositories
 
         public async Task<ResultDto<bool>> DeleteAsync(Guid id, CancellationToken token)
         {
+            if (id == Guid.Empty)
+                return new ResultDto<bool>("Id can not be null or empty!");
+
             var entity = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id, token);
 
             //Admin kaydının silinmemesi için IsDeleteable kontrolü:
@@ -54,6 +57,9 @@ namespace UserAPI.Business.Repositories
 
         public async Task<ResultDto<UserDto>> ReadAsync(Guid id, CancellationToken token)
         {
+            if (id == Guid.Empty)
+                return new ResultDto<UserDto>("Id can not be null or empty!");
+
             var entity = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id, token);
             return new ResultDto<UserDto>(entity.Adapt<UserDto>());
         }
