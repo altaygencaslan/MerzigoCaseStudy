@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Helper\Helper.csproj" />
     <ProjectReference Include="..\UserAPI.Domain\UserAPI.Domain.csproj" />
   </ItemGroup>
 
