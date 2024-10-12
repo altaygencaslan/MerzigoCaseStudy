@@ -1,4 +1,6 @@
-﻿using Helper.Classes;
+﻿using Helper;
+using Helper.Classes;
+using Helper.CustomHttpClient;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,9 +16,13 @@ namespace UserAPI.Business.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly UserDbContext _dbContext;
-        public UserRepository(UserDbContext dbContext)
+        private readonly IHttpClientHelper _httpClientHelper;
+
+        public UserRepository(UserDbContext dbContext, IHttpClientHelper httpClientHelper)
         {
             _dbContext = dbContext;
+            _httpClientHelper = httpClientHelper;
+            _httpClientHelper.GenerateClient(nameof(ClientCodeEnums.ContentService));
         }
 
         public async Task<ResultDto<UserDto>> CreateAsync(CreateUserDto item, CancellationToken token)
@@ -84,6 +90,11 @@ namespace UserAPI.Business.Repositories
 
             if (!string.IsNullOrEmpty(item.LastName))
                 entity.LastName = item.LastName;
+
+            if (item.IncrementTotalContent.HasValue)
+            {
+                entity.TotalContents += item.IncrementTotalContent.Value;
+            }
 
             if (item.UpdatedUserId != Guid.Empty)
             {

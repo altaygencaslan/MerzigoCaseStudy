@@ -1,6 +1,8 @@
 using ContentAPI.Business;
 using ContentAPI.Business.Repositories;
+using Helper.Classes;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,11 @@ builder.Services.AddControllers();
 var configuration = builder.Configuration;
 builder.Services.AddDbContext<ContentDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddScoped<IContentRepository, ContentRepository>();
+builder.Services.AddHttpClient("UserService", httpClient =>
+{
+    string userServiceUri = configuration.GetSection("BaseAddresses:UserService")?.Value ?? string.Empty;
+    httpClient.BaseAddress = new Uri(userServiceUri);
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -37,5 +44,23 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.Use(async (context, next) =>
+{
+    try
+    {
+        await next.Invoke();
+    }
+    catch (Exception ex)
+    {
+        var error = new ResultDto<string>(false, $"Exception: {ex.ToString()}", "Something is wrong");
+
+        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        context.Response.ContentType = "application/json";
+
+        await context.Response.WriteAsJsonAsync(error);
+        return;
+    }
+});
 
 app.Run();

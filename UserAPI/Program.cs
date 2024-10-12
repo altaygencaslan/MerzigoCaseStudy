@@ -15,6 +15,11 @@ builder.Services.AddDbContext<UserDbContext>(options => options.UseNpgsql(config
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddHttpClient("ContentService", httpClient =>
+{
+    string contentServiceUri = configuration.GetSection("BaseAddresses:ContentService")?.Value ?? string.Empty;
+    httpClient.BaseAddress = new Uri(contentServiceUri);
+});
 
 var app = builder.Build();
 
