@@ -21,9 +21,9 @@ namespace ContentAPI.Business.Migrations
                     Tags = table.Column<string>(type: "text", nullable: false),
                     PublishDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedUserId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedUserId = table.Column<int>(type: "integer", nullable: false),
+                    UpdatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>

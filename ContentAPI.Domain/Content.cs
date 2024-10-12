@@ -16,9 +16,9 @@ namespace ContentAPI.Domain
         public string Tags { get; set; }
         public DateTime? PublishDate { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int CreatedUserId { get; set; }
+        public Guid CreatedUserId { get; set; }
         public DateTime UpdatedDate { get; set; }
-        public int UpdatedUserId { get; set; }
+        public Guid UpdatedUserId { get; set; }
         public bool IsDeleted { get; set; }
     }
 }
