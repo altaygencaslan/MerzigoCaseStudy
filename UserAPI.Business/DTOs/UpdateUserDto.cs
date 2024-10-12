@@ -28,7 +28,7 @@ namespace UserAPI.Business.DTOs
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int? TotalContents { get; set; }
+        public int? IncrementTotalContent { get; set; }
 
         [Required(ErrorMessage = "*")]
         public Guid UpdatedUserId { get; set; }

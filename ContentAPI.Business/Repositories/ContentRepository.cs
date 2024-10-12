@@ -1,6 +1,9 @@
 ﻿using ContentAPI.Business.DTOs;
+using ContentAPI.Business.HttpClient;
 using ContentAPI.Domain;
+using Helper;
 using Helper.Classes;
+using Helper.CustomHttpClient;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,9 +17,12 @@ namespace ContentAPI.Business.Repositories
     public class ContentRepository : IContentRepository
     {
         private readonly ContentDbContext _dbContext;
-        public ContentRepository(ContentDbContext dbContext)
+        private readonly IHttpClientHelper _httpClientHelper;
+        private readonly CustomHttpClient _customHttpClient;
+        public ContentRepository(ContentDbContext dbContext, IHttpClientHelper httpClientHelper, CustomHttpClient customHttpClient)
         {
             _dbContext = dbContext;
+            _customHttpClient = customHttpClient;
         }
 
         public async Task<ResultDto<ContentDto>> CreateAsync(CreateContentDto item, CancellationToken token)
@@ -26,6 +32,8 @@ namespace ContentAPI.Business.Repositories
 
             _dbContext.Add(entity);
             int record = await _dbContext.SaveChangesAsync();
+
+            await _customHttpClient.UpdateUserTotalContentAsync(new UpdateUserDto(entity.Id, record * -1));
 
             return new ResultDto<ContentDto>(entity.Adapt<ContentDto>(), "Successfully created!");
         }
@@ -48,7 +56,10 @@ namespace ContentAPI.Business.Repositories
             //_dbContext.Remove(entity);
             int record = await _dbContext.SaveChangesAsync(token);
             if (record > 0)
+            {
+                await _customHttpClient.UpdateUserTotalContentAsync(new UpdateUserDto(id, record * -1));
                 return new ResultDto<bool>(true, "Successfully deleted!");
+            }
             else
                 return new ResultDto<bool>("Failed!");
 
