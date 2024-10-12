@@ -10,6 +10,11 @@ namespace UserAPI.Business
 {
     public class UserDbContext : DbContext
     {
+        public UserDbContext(DbContextOptions options) : base(options)
+        {
+            
+        }
+
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
