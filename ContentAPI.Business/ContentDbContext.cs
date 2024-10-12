@@ -10,6 +10,10 @@ namespace ContentAPI.Business
 {
     public class ContentDbContext : DbContext
     {
+        public ContentDbContext(DbContextOptions options) : base(options)
+        {
+
+        }
         public DbSet<Content> Contents { get; set; }
     }
 }
