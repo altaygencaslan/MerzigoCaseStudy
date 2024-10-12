@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using UserAPI.Business;
 using UserAPI.Business.Repositories;
 
@@ -13,7 +14,6 @@ var configuration = builder.Configuration;
 builder.Services.AddDbContext<UserDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();

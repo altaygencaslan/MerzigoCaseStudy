@@ -35,8 +35,8 @@ namespace ContentAPI.Business.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("CreatedUserId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CreatedUserId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Header")
                         .IsRequired()
@@ -55,8 +55,8 @@ namespace ContentAPI.Business.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("UpdatedUserId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("UpdatedUserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 

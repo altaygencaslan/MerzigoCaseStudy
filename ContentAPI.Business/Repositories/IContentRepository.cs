@@ -9,10 +9,10 @@ namespace ContentAPI.Business.Repositories
 {
     public interface IContentRepository
     {
-        Task<ContentDto> Create(CreateContentDto item);
-        Task<ContentDto> Read(Guid id);
-        Task<IEnumerable<ContentDto>> Read();
-        Task<ContentDto> Update(UpdateContentDto item);
-        Task<bool> Delete(Guid id);
+        Task<ContentDto> CreateAsync(CreateContentDto item, CancellationToken token);
+        Task<ContentDto> ReadAsync(Guid iditem, CancellationToken token);
+        Task<IEnumerable<ContentDto>> ReadAsync(CancellationToken token);
+        Task<ContentDto> UpdateAsync(UpdateContentDto item, CancellationToken token);
+        Task<bool> DeleteAsync(Guid id, CancellationToken token);
     }
 }

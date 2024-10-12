@@ -12,7 +12,7 @@ using UserAPI.Business;
 namespace UserAPI.Business.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20241012091427_FirstContentMigration")]
+    [Migration("20241012105118_FirstContentMigration")]
     partial class FirstContentMigration
     {
         /// <inheritdoc />
@@ -67,15 +67,15 @@ namespace UserAPI.Business.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1fd23216-5e38-454c-a84a-c3601bb225d5"),
-                            CreatedDate = new DateTime(2024, 10, 12, 12, 14, 25, 714, DateTimeKind.Local).AddTicks(5234),
+                            Id = new Guid("8e2b9479-5feb-4891-9df6-06c6a26d9868"),
+                            CreatedDate = new DateTime(2024, 10, 12, 13, 51, 16, 71, DateTimeKind.Local).AddTicks(7765),
                             CreatedUserId = new Guid("00000000-0000-0000-0000-000000000000"),
                             FirstName = "admin",
                             IsDeletable = false,
                             IsDeleted = false,
                             LastName = "admin",
                             TotalContents = 0,
-                            UpdatedDate = new DateTime(2024, 10, 12, 12, 14, 25, 714, DateTimeKind.Local).AddTicks(5244),
+                            UpdatedDate = new DateTime(2024, 10, 12, 13, 51, 16, 71, DateTimeKind.Local).AddTicks(7776),
                             UpdatedUserId = new Guid("00000000-0000-0000-0000-000000000000")
                         });
                 });

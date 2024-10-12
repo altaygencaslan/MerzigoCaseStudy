@@ -1,6 +1,7 @@
 using ContentAPI.Business;
 using ContentAPI.Business.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,6 @@ builder.Services.AddControllers();
 
 var configuration = builder.Configuration;
 builder.Services.AddDbContext<ContentDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")));
-
 builder.Services.AddScoped<IContentRepository, ContentRepository>();
 
 builder.Services.AddEndpointsApiExplorer();

@@ -34,7 +34,7 @@ namespace UserAPI.Business.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedDate", "CreatedUserId", "FirstName", "IsDeletable", "IsDeleted", "LastName", "TotalContents", "UpdatedDate", "UpdatedUserId" },
-                values: new object[] { new Guid("1fd23216-5e38-454c-a84a-c3601bb225d5"), new DateTime(2024, 10, 12, 12, 14, 25, 714, DateTimeKind.Local).AddTicks(5234), new Guid("00000000-0000-0000-0000-000000000000"), "admin", false, false, "admin", 0, new DateTime(2024, 10, 12, 12, 14, 25, 714, DateTimeKind.Local).AddTicks(5244), new Guid("00000000-0000-0000-0000-000000000000") });
+                values: new object[] { new Guid("8e2b9479-5feb-4891-9df6-06c6a26d9868"), new DateTime(2024, 10, 12, 13, 51, 16, 71, DateTimeKind.Local).AddTicks(7765), new Guid("00000000-0000-0000-0000-000000000000"), "admin", false, false, "admin", 0, new DateTime(2024, 10, 12, 13, 51, 16, 71, DateTimeKind.Local).AddTicks(7776), new Guid("00000000-0000-0000-0000-000000000000") });
         }
 
         /// <inheritdoc />

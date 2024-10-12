@@ -9,10 +9,10 @@ namespace UserAPI.Business.Repositories
 {
     public interface IUserRepository
     {
-        Task<UserDto> Create(CreateUserDto item);
-        Task<UserDto> Read(Guid id);
-        Task<IEnumerable<UserDto>> Read();
-        Task<UserDto> Update(UpdateUserDto item);
-        Task<bool> Delete(Guid id);
+        Task<UserDto> CreateAsync(CreateUserDto item, CancellationToken token);
+        Task<UserDto> ReadAsync(Guid id, CancellationToken token);
+        Task<IEnumerable<UserDto>> ReadAsync(CancellationToken token);
+        Task<UserDto> UpdateAsync(UpdateUserDto item, CancellationToken token);
+        Task<bool> DeleteAsync(Guid id, CancellationToken token);
     }
 }
