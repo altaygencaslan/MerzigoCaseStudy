@@ -19,8 +19,9 @@ namespace ContentAPI.Business.HttpClient
             _httpClientHelper.GenerateClient(nameof(ClientCodeEnums.UserService));
         }
 
-        public async Task UpdateUserTotalContentAsync(string endpoint, UpdateUserDto updateItem, CancellationToken token)
+        public async Task UpdateUserTotalContentAsync(UpdateUserDto updateItem, CancellationToken token)
         {
+            string endpoint = "/User";
             await _httpClientHelper.Put<UpdateUserDto, UpdateUserDto>(endpoint, updateItem, token);
         }
     }

@@ -33,7 +33,7 @@ namespace ContentAPI.Business.Repositories
             _dbContext.Add(entity);
             int record = await _dbContext.SaveChangesAsync();
 
-            await _customHttpClient.UpdateUserTotalContentAsync(new UpdateUserDto(entity.Id, record * -1));
+            await _customHttpClient.UpdateUserTotalContentAsync(new UpdateUserDto(entity.Id, record * -1), token);
 
             return new ResultDto<ContentDto>(entity.Adapt<ContentDto>(), "Successfully created!");
         }
@@ -57,7 +57,7 @@ namespace ContentAPI.Business.Repositories
             int record = await _dbContext.SaveChangesAsync(token);
             if (record > 0)
             {
-                await _customHttpClient.UpdateUserTotalContentAsync(new UpdateUserDto(id, record * -1));
+                await _customHttpClient.UpdateUserTotalContentAsync(new UpdateUserDto(id, record * -1), token);
                 return new ResultDto<bool>(true, "Successfully deleted!");
             }
             else
