@@ -1,5 +1,6 @@
 ﻿using ContentAPI.Business.DTOs;
 using ContentAPI.Domain;
+using Helper.Classes;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,7 +19,7 @@ namespace ContentAPI.Business.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<ContentDto> CreateAsync(CreateContentDto item, CancellationToken token)
+        public async Task<ResultDto<ContentDto>> CreateAsync(CreateContentDto item, CancellationToken token)
         {
             var entity = item.Adapt<Content>();
             entity.CreatedDate = DateTime.Now;
@@ -26,15 +27,15 @@ namespace ContentAPI.Business.Repositories
             _dbContext.Add(entity);
             int record = await _dbContext.SaveChangesAsync();
 
-            return entity.Adapt<ContentDto>();
+            return new ResultDto<ContentDto>(entity.Adapt<ContentDto>(), "Successfully created!");
         }
 
-        public async Task<bool> DeleteAsync(Guid id, CancellationToken token)
+        public async Task<ResultDto<bool>> DeleteAsync(Guid id, CancellationToken token)
         {
             var entity = await _dbContext.Contents.FirstOrDefaultAsync(u => u.Id == id, token);
 
             if (entity == null)
-                return false;
+                return new ResultDto<bool>("Item not found!");
 
             //Logic silme
             entity.IsDeleted = true;
@@ -43,30 +44,33 @@ namespace ContentAPI.Business.Repositories
             //Gerçek silme
             //_dbContext.Remove(entity);
             int record = await _dbContext.SaveChangesAsync(token);
+            if (record > 0)
+                return new ResultDto<bool>(true, "Successfully deleted!");
+            else
+                return new ResultDto<bool>("Failed!");
 
-            return record != 0;
         }
 
-        public async Task<ContentDto> ReadAsync(Guid iditem, CancellationToken token)
+        public async Task<ResultDto<ContentDto>> ReadAsync(Guid iditem, CancellationToken token)
         {
             var entity = await _dbContext.Contents.FirstOrDefaultAsync(u => u.Id == iditem, token);
-            return entity.Adapt<ContentDto>();
+            return new ResultDto<ContentDto>(entity.Adapt<ContentDto>());
         }
 
-        public async Task<IEnumerable<ContentDto>> ReadAsync(CancellationToken token)
+        public async Task<ResultDto<IEnumerable<ContentDto>>> ReadAsync(CancellationToken token)
         {
             //Yukarda Logic silme yapıldığı için burada IsDelted'ların Filtrelenmesi için bir parametere iyi olacaktır
             //Ancak case içeriğine sadık kalınması açısından eklenmedi,
 
             var listOfEntity = await _dbContext.Contents.ToListAsync(token);
-            return listOfEntity.Adapt<IEnumerable<ContentDto>>();
+            return new ResultDto<IEnumerable<ContentDto>>(listOfEntity.Adapt<IEnumerable<ContentDto>>());
         }
 
-        public async Task<ContentDto> UpdateAsync(UpdateContentDto item, CancellationToken token)
+        public async Task<ResultDto<ContentDto>> UpdateAsync(UpdateContentDto item, CancellationToken token)
         {
             var entity = await _dbContext.Contents.FirstOrDefaultAsync(u => u.Id == item.Id, token);
             if (entity == null)
-                return null;
+                return new ResultDto<ContentDto>(null, "Item not found!");
 
             entity.Header = item.Header;
             entity.Body = item.Body;
@@ -77,7 +81,7 @@ namespace ContentAPI.Business.Repositories
             _dbContext.Update(entity);
             int record = await _dbContext.SaveChangesAsync(token);
 
-            return entity.Adapt<ContentDto>();
+            return new ResultDto<ContentDto>(entity.Adapt<ContentDto>());
 
         }
     }

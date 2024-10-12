@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ContentAPI.Domain\ContentAPI.Domain.csproj" />
+    <ProjectReference Include="..\Helper\Helper.csproj" />
   </ItemGroup>
 
 </Project>
