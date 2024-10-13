@@ -21,8 +21,15 @@ namespace ContentAPI.Business.HttpClient
 
         public async Task UpdateUserTotalContentAsync(UpdateUserDto updateItem, CancellationToken token)
         {
-            string endpoint = "/User";
-            await _httpClientHelper.Put<UpdateUserDto, UpdateUserDto>(endpoint, updateItem, token);
+            try
+            {
+                string endpoint = "/User";
+                await _httpClientHelper.Put<UpdateUserDto, UpdateUserDto>(endpoint, updateItem, token);
+            }
+            catch (Exception ex)
+            {
+                //When fail request to user
+            }
         }
     }
 }
