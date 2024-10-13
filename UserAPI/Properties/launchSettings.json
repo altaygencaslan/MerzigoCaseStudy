@@ -8,7 +8,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7186;http://localhost:5235"
+      "applicationUrl": "https://localhost:7186;http://localhost:5235;http://localhost:7070;https://localhost:7071"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -23,8 +23,8 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "environmentVariables": {
-        "ASPNETCORE_HTTPS_PORTS": "8081",
-        "ASPNETCORE_HTTP_PORTS": "8080"
+        "ASPNETCORE_HTTPS_PORTS": "7071",
+        "ASPNETCORE_HTTP_PORTS": "7070"
       },
       "publishAllPorts": true,
       "useSSL": true

@@ -5,6 +5,8 @@ using UserAPI.Business.Repositories;
 
 namespace UserAPI.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;

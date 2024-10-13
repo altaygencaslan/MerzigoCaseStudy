@@ -4,8 +4,8 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
+EXPOSE 7070
+EXPOSE 7071
 
 
 # This stage is used to build the service project
@@ -13,6 +13,9 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["UserAPI/UserAPI.csproj", "UserAPI/"]
+COPY ["UserAPI.Business/UserAPI.Business.csproj", "UserAPI.Business/"]
+COPY ["UserAPI.Domain/UserAPI.Domain.csproj", "UserAPI.Domain/"]
+COPY ["Helper/Helper.csproj", "Helper/"]
 RUN dotnet restore "./UserAPI/UserAPI.csproj"
 COPY . .
 WORKDIR "/src/UserAPI"

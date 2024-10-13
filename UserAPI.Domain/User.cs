@@ -16,7 +16,7 @@ namespace UserAPI.Domain
         public int TotalContents { get; set; }
         public DateTime CreatedDate { get; set; }
         public Guid CreatedUserId { get; set; }
-        public DateTime UpdatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
         public Guid? UpdatedUserId { get; set; }
         public bool IsDeletable { get; set; }
         public bool IsDeleted { get; set; }

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ContentAPI.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class ContentController : Controller
     {
         private readonly IContentRepository _contentRepository;
