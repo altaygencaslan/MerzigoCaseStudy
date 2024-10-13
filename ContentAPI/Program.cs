@@ -1,6 +1,8 @@
 using ContentAPI.Business;
+using ContentAPI.Business.HttpClient;
 using ContentAPI.Business.Repositories;
 using Helper.Classes;
+using Helper.CustomHttpClient;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Reflection;
@@ -13,8 +15,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 var configuration = builder.Configuration;
-builder.Services.AddDbContext<ContentDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")));
+builder.Services.AddDbContext<ContentDbContext>(options => options.UseNpgsql(configuration.GetSection("ConnectionStrings:PostgreSQL")?.Value ?? ""));
 builder.Services.AddScoped<IContentRepository, ContentRepository>();
+builder.Services.AddScoped<IHttpClientHelper, HttpClientHelper>();
+builder.Services.AddScoped<CustomHttpClient>();
 builder.Services.AddHttpClient("UserService", httpClient =>
 {
     string userServiceUri = configuration.GetSection("BaseAddresses:UserService")?.Value ?? string.Empty;
@@ -39,6 +43,14 @@ using (var scope = app.Services.CreateAsyncScope())
     db.Database.Migrate();
 }
 
+app.UseCors(builder =>
+{
+    builder.AllowAnyOrigin()
+           .AllowAnyHeader()
+           .AllowAnyMethod();
+
+});
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -53,7 +65,7 @@ app.Use(async (context, next) =>
     }
     catch (Exception ex)
     {
-        var error = new ResultDto<string>(false, $"Exception: {ex.ToString()}", "Something is wrong");
+        var error = new ResultDto<string>(false, $"Exception: {ex.ToString()}", "Somethings went wrong");
 
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
         context.Response.ContentType = "application/json";

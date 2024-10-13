@@ -1,0 +1,26 @@
+services:
+  contentapi:
+    container_name: contentapi-container
+    image: ${DOCKER_REGISTRY-}contentapi
+    build:
+      context: .
+      dockerfile: ContentAPI/Dockerfile
+    ports:
+    - "1071:8080"
+    networks:
+    - project-network
+
+  userapi:
+    container_name: userapi-container
+    image: ${DOCKER_REGISTRY-}userapi
+    build:
+      context: .
+      dockerfile: UserAPI/Dockerfile
+    ports:
+    - "1453:7070"
+    networks:
+    - project-network
+      
+networks:
+  project-network:
+    driver: bridge

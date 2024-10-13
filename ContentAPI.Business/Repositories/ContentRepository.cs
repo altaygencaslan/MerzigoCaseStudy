@@ -28,7 +28,7 @@ namespace ContentAPI.Business.Repositories
         public async Task<ResultDto<ContentDto>> CreateAsync(CreateContentDto item, CancellationToken token)
         {
             var entity = item.Adapt<Content>();
-            entity.CreatedDate = DateTime.Now;
+            entity.CreatedDate = DateTime.UtcNow;
 
             _dbContext.Add(entity);
             int record = await _dbContext.SaveChangesAsync();
@@ -50,7 +50,7 @@ namespace ContentAPI.Business.Repositories
 
             //Logic silme
             entity.IsDeleted = true;
-            entity.UpdatedDate = DateTime.Now;
+            entity.UpdatedDate = DateTime.UtcNow;
 
             //Gerçek silme
             //_dbContext.Remove(entity);
@@ -92,7 +92,7 @@ namespace ContentAPI.Business.Repositories
             entity.Header = item.Header;
             entity.Body = item.Body;
             entity.Tags = item.Tags;
-            entity.UpdatedDate = DateTime.Now;
+            entity.UpdatedDate = DateTime.UtcNow;
             entity.UpdatedUserId = item.UpdatedUserId;
 
             _dbContext.Update(entity);

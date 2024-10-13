@@ -13,9 +13,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["ContentAPI/ContentAPI.csproj", "ContentAPI/"]
-COPY ["ContentAPI.Business/ContentAPI.Business.csproj", "ContentAPI.Business/"]
-COPY ["ContentAPI.Domain/ContentAPI.Domain.csproj", "ContentAPI.Domain/"]
-COPY ["Helper/Helper.csproj", "Helper/"]
 RUN dotnet restore "./ContentAPI/ContentAPI.csproj"
 COPY . .
 WORKDIR "/src/ContentAPI"

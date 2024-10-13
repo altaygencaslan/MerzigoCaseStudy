@@ -28,7 +28,7 @@ namespace UserAPI.Business.Repositories
         public async Task<ResultDto<UserDto>> CreateAsync(CreateUserDto item, CancellationToken token)
         {
             var entity = item.Adapt<User>();
-            entity.CreatedDate = DateTime.Now;
+            entity.CreatedDate = DateTime.UtcNow;
 
             _dbContext.Add(entity);
             int record = await _dbContext.SaveChangesAsync(token);
@@ -44,12 +44,15 @@ namespace UserAPI.Business.Repositories
             var entity = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id, token);
 
             //Admin kaydının silinmemesi için IsDeleteable kontrolü:
-            if (entity == null || !entity.IsDeletable)
+            if (entity == null)
                 return new ResultDto<bool>("Item not found!");
+
+            if (!entity.IsDeletable)
+                return new ResultDto<bool>("Item can not remove!");
 
             //Logic silme
             entity.IsDeleted = true;
-            entity.UpdatedDate = DateTime.Now;
+            entity.UpdatedDate = DateTime.UtcNow;
 
             //Gerçek silme
             //_dbContext.Remove(entity);
@@ -98,7 +101,7 @@ namespace UserAPI.Business.Repositories
 
             if (item.UpdatedUserId != Guid.Empty)
             {
-                entity.UpdatedDate = DateTime.Now;
+                entity.UpdatedDate = DateTime.UtcNow;
                 entity.UpdatedUserId = item.UpdatedUserId;
             }
 

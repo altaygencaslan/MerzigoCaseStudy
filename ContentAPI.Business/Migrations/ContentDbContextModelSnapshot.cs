@@ -52,10 +52,10 @@ namespace ContentAPI.Business.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("UpdatedUserId")
+                    b.Property<Guid?>("UpdatedUserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");

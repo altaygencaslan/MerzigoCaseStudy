@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace UserAPI.Business.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstContentMigration : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,7 +21,7 @@ namespace UserAPI.Business.Migrations
                     TotalContents = table.Column<int>(type: "integer", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     UpdatedUserId = table.Column<Guid>(type: "uuid", nullable: true),
                     IsDeletable = table.Column<bool>(type: "boolean", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
@@ -34,7 +34,7 @@ namespace UserAPI.Business.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedDate", "CreatedUserId", "FirstName", "IsDeletable", "IsDeleted", "LastName", "TotalContents", "UpdatedDate", "UpdatedUserId" },
-                values: new object[] { new Guid("8e2b9479-5feb-4891-9df6-06c6a26d9868"), new DateTime(2024, 10, 12, 13, 51, 16, 71, DateTimeKind.Local).AddTicks(7765), new Guid("00000000-0000-0000-0000-000000000000"), "admin", false, false, "admin", 0, new DateTime(2024, 10, 12, 13, 51, 16, 71, DateTimeKind.Local).AddTicks(7776), new Guid("00000000-0000-0000-0000-000000000000") });
+                values: new object[] { new Guid("6f13cc15-e9f1-4a64-9230-9802e98fa2a0"), new DateTime(2024, 10, 13, 0, 14, 59, 879, DateTimeKind.Utc).AddTicks(4844), new Guid("00000000-0000-0000-0000-000000000000"), "admin", false, false, "admin", 0, null, new Guid("00000000-0000-0000-0000-000000000000") });
         }
 
         /// <inheritdoc />

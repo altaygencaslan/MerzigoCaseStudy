@@ -51,7 +51,7 @@ namespace UserAPI.Business.Migrations
                     b.Property<int>("TotalContents")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid?>("UpdatedUserId")
@@ -64,15 +64,14 @@ namespace UserAPI.Business.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8e2b9479-5feb-4891-9df6-06c6a26d9868"),
-                            CreatedDate = new DateTime(2024, 10, 12, 13, 51, 16, 71, DateTimeKind.Local).AddTicks(7765),
+                            Id = new Guid("6f13cc15-e9f1-4a64-9230-9802e98fa2a0"),
+                            CreatedDate = new DateTime(2024, 10, 13, 0, 14, 59, 879, DateTimeKind.Utc).AddTicks(4844),
                             CreatedUserId = new Guid("00000000-0000-0000-0000-000000000000"),
                             FirstName = "admin",
                             IsDeletable = false,
                             IsDeleted = false,
                             LastName = "admin",
                             TotalContents = 0,
-                            UpdatedDate = new DateTime(2024, 10, 12, 13, 51, 16, 71, DateTimeKind.Local).AddTicks(7776),
                             UpdatedUserId = new Guid("00000000-0000-0000-0000-000000000000")
                         });
                 });

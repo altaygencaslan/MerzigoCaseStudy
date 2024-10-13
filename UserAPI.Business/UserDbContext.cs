@@ -12,7 +12,7 @@ namespace UserAPI.Business
     {
         public UserDbContext(DbContextOptions options) : base(options)
         {
-            
+
         }
 
         public DbSet<User> Users { get; set; }
@@ -25,9 +25,9 @@ namespace UserAPI.Business
                     Id = Guid.NewGuid(),
                     FirstName = "admin",
                     LastName = "admin",
-                    CreatedDate = DateTime.Now,
+                    CreatedDate = DateTime.UtcNow,
                     CreatedUserId = Guid.Empty,
-                    UpdatedDate = DateTime.Now,
+                    UpdatedDate = null,
                     UpdatedUserId = Guid.Empty,
                     IsDeletable = false,
                     IsDeleted = false,

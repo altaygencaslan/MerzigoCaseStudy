@@ -42,8 +42,11 @@ namespace Helper.CustomHttpClient
 
         public async Task<T> Put<T, K>(string endpoint, K item, CancellationToken token)
         {
-            HttpContent content = new StringContent(JsonSerializer.Serialize(item), Encoding.UTF8, "application/json");
-            var httpResponse = await _httpClient.PutAsync(endpoint, content, token);
+            var request = new HttpRequestMessage(HttpMethod.Put, endpoint);
+            request.Headers.Add("Accept", "application/json");
+
+            request.Content = new StringContent(JsonSerializer.Serialize(item), Encoding.UTF8, "application/json");
+            var httpResponse = await _httpClient.SendAsync(request, token);
 
             if (httpResponse?.StatusCode == System.Net.HttpStatusCode.OK)
             {
